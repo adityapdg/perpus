@@ -15,7 +15,15 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('author_id');
+            $table->string('title');
+            $table->text('description');
+            $table->string('cover')->nullable()->default(null);
             $table->timestamps();
+
+            $table->foreign('author_id')->references('id')->on('autohrs')
+            ->onUpdate('CASCADE')
+            ->onDelete('CASCADE');
         });
     }
 
